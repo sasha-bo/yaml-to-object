@@ -74,11 +74,11 @@ class Yaml
             $error instanceof KeyDuplicationError => 'Key duplication in '.$nameConverter->getOriginalKey($error->path),
             $error instanceof TooLargeError =>
                 'Yaml parameter '.$nameConverter->getOriginalKey($error->path).' must be smaller'
-                .($error->mayBeEqual ? ' than ' : ' or equal to ').$error->max.
+                .($error->mayBeEqual ? ' or equal to ' : ' than ').$error->max.
                 ', '.VarPrinter::print($error->value).' given',
             $error instanceof TooSmallError =>
                 'Yaml parameter '.$nameConverter->getOriginalKey($error->path).' must be greater'
-                .($error->mayBeEqual ? ' than ' : ' or equal to ').$error->min.
+                .($error->mayBeEqual ? ' or equal to ' : ' than ').$error->min.
                 ', '.VarPrinter::print($error->value).' given',
             $error instanceof TrueFalseError =>
                 'Yaml parameter '.$nameConverter->getOriginalKey($error->path).' must be '

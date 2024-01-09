@@ -44,7 +44,7 @@ string_parameter: 888
 ```YamlException``` is thrown is the YAML file doesn't match 
 the class:
 
-``` Yaml parameter positive_integer_parameter must be greater than 1, "-1" given```
+``` Yaml parameter positive_integer_parameter must be greater or equal to 1, "-1" given```
 
 ```yaml
 integer_parameter: '777'

@@ -3,6 +3,7 @@
 namespace Unicon\Yaml;
 
 use Symfony\Component\Yaml\Yaml as SymfonyYaml;
+use Unicon\Unicon\ConversionSettings;
 use Unicon\Unicon\ConversionValue;
 use Unicon\Unicon\ConverterFactory;
 use Unicon\Unicon\Converters\AbstractConverter;
@@ -11,12 +12,13 @@ use Unicon\Unicon\Errors\ConstructorParamNotSet;
 use Unicon\Unicon\Errors\DynamicPropertyError;
 use Unicon\Unicon\Errors\EmptyArrayError;
 use Unicon\Unicon\Errors\KeyDuplicationError;
+use Unicon\Unicon\Errors\MissedPropertyError;
 use Unicon\Unicon\Errors\TooLargeError;
 use Unicon\Unicon\Errors\TooSmallError;
 use Unicon\Unicon\Errors\TrueFalseError;
 use Unicon\Unicon\Errors\UnionError;
 use Unicon\Unicon\Errors\ZeroError;
-use Unicon\Unicon\VarPrinter;
+use Unicon\Unicon\Tools\VarPrinter;
 
 /** @template GivenClass */
 class Yaml
@@ -26,7 +28,14 @@ class Yaml
     /** @param class-string<GivenClass> $className */
     public function __construct(private readonly string $className)
     {
-        $this->converter = ConverterFactory::create($className);
+        $settings = new ConversionSettings();
+        $settings->checkIfAllPropertiesAreInitialized();
+        $settings->setStringToDateFormats(['Y-m-d H:i:s']);
+        $settings->setDateToStringFormat('Y-m-d H:i:s');
+        $settings->allowHumanConversion(true);
+        $settings->allowForcedConversion(false);
+        $settings->allowTimestampToDateConversion(false);
+        $this->converter = ConverterFactory::create($className, $settings);
     }
 
     /**
@@ -57,8 +66,10 @@ class Yaml
             is_null($error) => 'Yaml reading error',
             $error instanceof ConstructorParamNotSet => 'Yaml parameter '.$nameConverter->getOriginalKey([...$error->path, $error->parameter]).' is required',
             $error instanceof DynamicPropertyError =>
-                'Yaml parameter '.$nameConverter->getOriginalKey([...$error->path, $error->property]).
-                ' with value '.VarPrinter::print($error->value).' is unexpected',
+                'Yaml parameter '.$nameConverter->getOriginalKey($error->path).
+                ' with value '.VarPrinter::print($error->propertyValue).' is unexpected',
+            $error instanceof MissedPropertyError =>
+                'Yaml parameter '.$nameConverter->getOriginalKey([...$error->path]).' is missed',
             $error instanceof EmptyArrayError => 'Yaml array '.$nameConverter->getOriginalKey($error->path).' must not be empty',
             $error instanceof KeyDuplicationError => 'Key duplication in '.$nameConverter->getOriginalKey($error->path),
             $error instanceof TooLargeError =>
@@ -75,7 +86,8 @@ class Yaml
                 ', '.VarPrinter::print($error->value).' given',
             $error instanceof UnionError => 'Can\'t convert '.$nameConverter->getOriginalKey($error->path).' to union '.$error->typeHint,
             $error instanceof ZeroError => 'Yaml parameter '.$nameConverter->getOriginalKey($error->path).' must not be 0',
-            default => 'Can\'t convert '.$nameConverter->getOriginalKey($error->path).' to '.$error->typeHint
+            default => 'Can\'t convert '.$nameConverter->getOriginalKey($error->path)
+                .' '.VarPrinter::print($error->value).' to '.$error->typeHint
         };
     }
 }

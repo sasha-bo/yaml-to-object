@@ -1,4 +1,5 @@
-integer_Parameter: '777'
+extra_parameter: true
+integer_parameter: '777'
 positive_integer_parameter: 666
 boolean_or_null_parameter: null
 string_parameter: 888

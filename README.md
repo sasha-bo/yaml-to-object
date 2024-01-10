@@ -71,9 +71,8 @@ string_parameter: 888
 
 ```Yaml parameter positive_integer_parameter is missed```
 
-(```integer_parameter```, ```boolean_or_null_parameter``` and 
-```string_parameter``` are missed too, but they have
-default values or are nullable)
+(```integer_parameter``` and ```boolean_or_null_parameter``` are missed too, 
+but one has default values, another is nullable)
 
 ```yaml
 string_parameter: 'aaa'

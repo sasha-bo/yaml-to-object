@@ -90,3 +90,8 @@ positive_integer_parameter: 666
 boolean_or_null_parameter: null
 string_parameter: 888
 ```
+
+You can find more examples in the 
+[test directory](https://github.com/sasha-bo/yaml-to-object/tree/master/tests/examples)
+including dates, complicated structures and trees 
+(classes with ```array<self>``` properties).

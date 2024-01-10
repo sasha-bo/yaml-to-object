@@ -1,6 +1,6 @@
 {
     "name": "unicon/yaml",
-    "version": "1.0",
+    "version": "1.0.0",
     "description": "Validates YAML file using given class and, if matches, creates an object. Understands PhpDoc, converts values if necessary. Works recursively, so the YAML file may have complicated structure, and the given class may have properties of other classes.",
     "type": "library",
     "license": "GPL-2.0-only",
@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=8.1",
-        "unicon/unicon": "^1.0",
+        "unicon/unicon": "^1.0.0",
         "symfony/yaml": ">=6.0"
     }
 }

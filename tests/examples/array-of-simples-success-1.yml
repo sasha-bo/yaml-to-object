@@ -1,0 +1,17 @@
+boolean_parameter: 'true'
+simples:
+  0:
+    integer_parameter: '777'
+    positive_integer_parameter: 1
+    boolean_or_null_parameter: null
+    string_parameter: 888
+  1:
+    integer_parameter: '888'
+    positive_integer_parameter: 2
+    boolean_or_null_parameter: true
+    string_parameter: 'aaa'
+  2:
+    integer_parameter: '999'
+    positive_integer_parameter: 3
+    boolean_or_null_parameter: false
+    string_parameter: 'bbb'

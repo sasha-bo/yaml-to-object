@@ -1,0 +1,3 @@
+integer_parameter: 1000
+boolean_or_null_parameter: 'null'
+string_parameter: 'aaa'

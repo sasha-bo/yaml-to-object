@@ -1,0 +1,4 @@
+integer_parameter: ''
+positive_integer_parameter: 555
+boolean_or_null_parameter: false
+string_parameter: false

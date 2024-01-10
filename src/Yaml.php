@@ -35,6 +35,7 @@ class Yaml
         $settings->allowHumanConversion(true);
         $settings->allowForcedConversion(false);
         $settings->allowTimestampToDateConversion(false);
+        $settings->allowNullToEmptyArrayConversion(true);
         $this->converter = ConverterFactory::create($className, $settings);
     }
 

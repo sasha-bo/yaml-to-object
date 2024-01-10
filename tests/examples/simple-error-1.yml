@@ -1,0 +1,4 @@
+integer_parameter: 'aaa'
+positive_integer_parameter: 1
+boolean_or_null_parameter: null
+string_parameter: 'aaa'

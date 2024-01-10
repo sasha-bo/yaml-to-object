@@ -1,0 +1,7 @@
+boolean_parameter: 'true'
+simples:
+  string_key:
+    integer_parameter: '777'
+    positive_integer_parameter: 1
+    boolean_or_null_parameter: null
+    string_parameter: 888
